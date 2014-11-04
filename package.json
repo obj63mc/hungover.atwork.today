@@ -1,0 +1,27 @@
+{
+  "name": "hungover.atwork.today",
+  "version": "1.0.0",
+  "description": "hungover.atwork.today =====================",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "debug": "node debug index.js"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/obj63mc/hungover.atwork.today.git"
+  },
+  "author": "Joe Madden <obj63mc@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/obj63mc/hungover.atwork.today/issues"
+  },
+  "homepage": "https://github.com/obj63mc/hungover.atwork.today",
+  "dependencies": {
+    "body-parser": "^1.9.2",
+    "express": "^4.10.1"
+  }
+}
