@@ -10,24 +10,22 @@ atworktoday.controller('main', ['$scope', '$http', '$sce',
     	    return $sce.trustAsResourceUrl(src);
     	}
 
+        $http.get('http://atworktoday.postpogo.com/Feed/feedstart?type=all&approved=0&limit=100000').success(function(response){
+
+            for(var i in response.posts){
+                if(new Date(response.posts[i].postdate).getDate() == d){
+                    $scope.posts.push(response.posts[i]);
+                }
+            }
+        });
+
         var socket = io.connect('http://atworktoday.postpogo.com:80');
 
         socket.on('connect', function(){
-            $http.get('http://atworktoday.postpogo.com/Feed/feedstart?type=all&approved=0&limit=100000').success(function(response){
-
-                for(var i in response.posts){
-                    if(new Date(response.posts[i].postdate).getDate() == d){
-                        $scope.posts.push(response.posts[i]);
-                    }
-                }
-                $scope.posts = response.posts;
-
+            socket.on('newpost', function(response){
+                $scope.posts.unshift(response.post);
+                $scope.$apply();
             });
-        });
-
-        socket.on('newpost', function(response){
-            $scope.posts.unshift(response.post);
-            $scope.$apply();
-        });
+        });        
     }
 ]);
