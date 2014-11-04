@@ -13,7 +13,7 @@ atworktoday.controller('main', ['$scope', '$http', '$sce',
         var socket = io.connect('http://atworktoday.postpogo.com:80');
 
         socket.on('connect', function(){
-            socket.get('/Feed/feedstart?type=all&approved=0&limit=100000', {}, function(response){
+            $http.get('http://atworktoday.postpogo.com/Feed/feedstart?type=all&approved=0&limit=100000').success(function(response){
 
                 for(var i in response.posts){
                     if(new Date(response.posts[i].postdate).getDate() == d){
@@ -21,7 +21,7 @@ atworktoday.controller('main', ['$scope', '$http', '$sce',
                     }
                 }
                 $scope.posts = response.posts;
-                $scope.$apply();
+
             });
         });
 
