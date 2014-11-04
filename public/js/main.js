@@ -23,11 +23,11 @@ atworktoday.controller('main', ['$scope', '$http', '$sce',
                 $scope.posts = response.posts;
                 $scope.$apply();
             });
+        });
 
-            socket.on('newpost', function(response){
-                $scope.posts.unshift(response.post);
-                $scope.$apply();
-            });
+        socket.on('newpost', function(response){
+            $scope.posts.unshift(response.post);
+            $scope.$apply();
         });
     }
 ]);
