@@ -21,10 +21,10 @@
         <h1>#Hungover.AtWork.Today</h1>
         <div class="posts clearfix" ng-controller="main">
             <div class="left post" ng-repeat="post in posts">
-                <a href="{{post.data.link}}" target="_blank" ng-if="post.type=='instagram'">
+                <a href="{{post.data.link}}" target="_blank" ng-if="post.type=='instagram'" onclick="ga('send', 'event', 'instagram', 'click', '{{post.data.link}}');">
                     <img ng-src="{{post.data.user.profile_picture}}" alt="@{{post.data.user.username}}"/>
                 </a>
-                <a href="https://twitter.com/{{post.data.user.screen_name}}/status/{{post.data.id_str}}" target="_blank" ng-if="post.type=='twitter'">
+                <a href="https://twitter.com/{{post.data.user.screen_name}}/status/{{post.data.id_str}}" target="_blank" ng-if="post.type=='twitter'" onclick="ga('send', 'event', 'twitter', 'click', '/{{post.data.user.screen_name}}/status/{{post.data.id_str}}');">
                     <img ng-src="{{post.data.user.profile_image_url_https}}" alt="@{{post.data.user.screen_name}}"/>
                 </a>
             </div>
