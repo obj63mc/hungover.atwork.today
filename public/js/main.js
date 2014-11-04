@@ -10,6 +10,10 @@ atworktoday.controller('main', ['$scope', '$http', '$sce',
     	    return $sce.trustAsResourceUrl(src);
     	}
 
+        $scope.ga = function(type, action, label){
+            ga('send','event', type, action, label);
+        };
+
         $http.get('http://atworktoday.postpogo.com/Feed/feedstart?type=all&approved=0&limit=100000').success(function(response){
 
             for(var i in response.posts){
@@ -26,6 +30,6 @@ atworktoday.controller('main', ['$scope', '$http', '$sce',
                 $scope.posts.unshift(response.post);
                 $scope.$apply();
             });
-        });        
+        });
     }
 ]);
