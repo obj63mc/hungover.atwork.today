@@ -37,6 +37,13 @@ atworktoday.controller('main', ['$scope', '$http', '$sce',
 
         socket.on('connect', function(){
             socket.on('newpost', function(response){
+                if(response.post.type == "twitter"){
+                    response.post.data.text = minEmoji(response.post.data.text);
+                } else if(response.posts[i].type == "instagram"){
+                    if(typeof(response.post.data.caption) != "undefined" && response.post.data.caption != null){
+                        response.post.data.caption.text = minEmoji(response.post.data.caption.text);
+                    }
+                }
                 $scope.posts.unshift(response.post);
                 $scope.$apply();
             });
