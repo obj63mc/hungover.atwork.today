@@ -21,12 +21,21 @@
         <h1>#Hungover.AtWork.Today</h1>
         <div class="posts clearfix" ng-controller="main">
             <div class="left post" ng-repeat="post in posts">
-                <a href="{{post.data.link}}" target="_blank" ng-if="post.type=='instagram'" ng-click="ga('instagram', 'click', post.data.link);" title="@{{post.data.user.username}} - {{post.data.caption.text}}">
+                <a href="#" class="tooltip arrow" ng-if="post.type=='instagram'" ng-click="ga('instagram', 'click', post.data.link);" title="@{{post.data.user.username}} - {{post.data.caption.text}}">
                     <img ng-src="{{post.data.user.profile_picture}}" alt="@{{post.data.user.username}}"/>
                 </a>
-                <a href="https://twitter.com/{{post.data.user.screen_name}}/status/{{post.data.id_str}}" target="_blank" ng-if="post.type=='twitter'" ng-click="ga('twitter', 'click', '/'+post.data.user.screen_name+'/status/'+post.data.id_str);  console.log('hello');" title="@{{post.data.user.screen_name}} - {{post.data.text}}">
+                <a href="#" class="tooltip arrow" ng-if="post.type=='twitter'" ng-click="ga('twitter', 'click', '/'+post.data.user.screen_name+'/status/'+post.data.id_str);  console.log('hello');" title="@{{post.data.user.screen_name}} - {{post.data.text}}">
                     <img ng-src="{{post.data.user.profile_image_url_https}}" alt="@{{post.data.user.screen_name}}"/>
                 </a>
+                <div class="tooltip">
+                    <p ng-if="post.type=='instagram'">
+                        @{{post.data.user.username}} - {{post.data.caption.text}}<br/>
+                        <img ng-src="{{post.data.images.low_resolution.url}}" style="padding-top:20px;"/>
+                    </p>
+                    <p ng-if="post.type=='twitter'">
+                        @{{post.data.user.screen_name}} - {{post.data.text}}
+                    </p>
+                </div>
             </div>
         </div>
 
@@ -40,9 +49,11 @@
             ga('send', 'pageview');
         </script>
         <script src="http://atworktoday.postpogo.com/socket.io/socket.io.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.1/angular.min.js"></script>
         <script src="https://code.angularjs.org/1.3.1/angular-sanitize.min.js"></script>
         <script src="js/sails.io.js"></script>
+        <script src="js/jquery.transit.min.js"></script>
         <script src="js/main.js"></script>
     </body>
 </html>
