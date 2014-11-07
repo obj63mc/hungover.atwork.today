@@ -18,7 +18,17 @@ atworktoday.controller('main', ['$scope', '$http', '$sce',
 
             for(var i in response.posts){
                 if(new Date(response.posts[i].postdate).getDate() == d){
+                    if(response.posts[i].type == "twitter"){
+                        response.posts[i].data.text = minEmoji(response.posts[i].data.text);
+                    } else if(response.posts[i].type == "instagram"){
+                        if(typeof(response.posts[i].data.caption) != "undefined" && response.posts[i].data.caption != null){
+                            response.posts[i].data.caption.text = minEmoji(response.posts[i].data.caption.text);
+                        }
+                    }
+                    $('.loader').hide();
+                    $('.posts').show();
                     $scope.posts.push(response.posts[i]);
+
                 }
             }
         });
