@@ -4,7 +4,9 @@ atworktoday.controller('main', ['$scope', '$http', '$sce',
     function($scope, $http, $sce){
 
         $scope.posts = [];
-        var d = new Date().getDate();
+        var day = new Date();
+        var d = day.getDate();
+        day = day.getFullYear()+"-"+(day.getMonth()+1)+"-"+day.getDate();
 
         $scope.trustSrc = function(src) {
     	    return $sce.trustAsResourceUrl(src);
@@ -14,7 +16,7 @@ atworktoday.controller('main', ['$scope', '$http', '$sce',
             ga('send','event', type, action, label);
         };
 
-        $http.get('http://atworktoday.postpogo.com/Feed/feedstart?type=all&approved=0&limit=100000').success(function(response){
+        $http.get('http://atworktoday.postpogo.com/Feed/feedstart?type=all&approved=0&limit=100000&sort=1&searchdate='+day).success(function(response){
 
             for(var i in response.posts){
                 if(new Date(response.posts[i].postdate).getDate() == d){
@@ -36,17 +38,18 @@ atworktoday.controller('main', ['$scope', '$http', '$sce',
         var socket = io.connect('http://atworktoday.postpogo.com:80');
 
         socket.on('connect', function(){
-            socket.on('newpost', function(response){
-                if(response.post.type == "twitter"){
-                    response.post.data.text = minEmoji(response.post.data.text);
-                } else if(response.posts[i].type == "instagram"){
-                    if(typeof(response.post.data.caption) != "undefined" && response.post.data.caption != null){
-                        response.post.data.caption.text = minEmoji(response.post.data.caption.text);
-                    }
+
+        });
+        socket.on('newpost', function(response){
+            if(response.post.type == "twitter"){
+                response.post.data.text = minEmoji(response.post.data.text);
+            } else if(response.posts[i].type == "instagram"){
+                if(typeof(response.post.data.caption) != "undefined" && response.post.data.caption != null){
+                    response.post.data.caption.text = minEmoji(response.post.data.caption.text);
                 }
-                $scope.posts.unshift(response.post);
-                $scope.$apply();
-            });
+            }
+            $scope.posts.unshift(response.post);
+            $scope.$apply();
         });
     }
 ]);
