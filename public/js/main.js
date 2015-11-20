@@ -36,12 +36,12 @@ atworktoday.controller('main', ['$scope', '$http', '$sce',
             }
         });
 
-        io.sails.connect('http://atworktoday.postpogo.com:80');
+        io.socket = io.sails.connect('http://atworktoday.postpogo.com:80');
 
         io.socket.on('connect', function(){
             console.log('connected');
             console.log(io.socket);
-            console.log(socket);
+            
         });
         io.socket.on('newpost', function(response){
             if(response.post.type == "twitter"){
