@@ -1,5 +1,5 @@
 var atworktoday = angular.module('atworktoday', ['ngSanitize']);
-io.sails.autoConnect = false;
+//io.sails.autoConnect = false;
 
 atworktoday.controller('main', ['$scope', '$http', '$sce',
     function($scope, $http, $sce){
@@ -36,9 +36,9 @@ atworktoday.controller('main', ['$scope', '$http', '$sce',
             }
         });
 
-        var socket = io.connect('http://atworktoday.postpogo.com:80');
+        io.sails.connect('http://atworktoday.postpogo.com:80');
 
-        socket.on('connect', function(){
+        io.socket.on('connect', function(){
             console.log('connected');
             console.log(io.socket);
             console.log(socket);
