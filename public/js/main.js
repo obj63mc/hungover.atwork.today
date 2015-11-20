@@ -39,9 +39,11 @@ atworktoday.controller('main', ['$scope', '$http', '$sce',
         var socket = io.connect('http://atworktoday.postpogo.com:80');
 
         socket.on('connect', function(){
-
+            console.log('connected');
+            console.log(io.socket);
+            console.log(socket);
         });
-        socket.on('newpost', function(response){
+        io.socket.on('newpost', function(response){
             if(response.post.type == "twitter"){
                 response.post.data.text = minEmoji(response.post.data.text);
             } else if(response.post.type == "instagram"){
