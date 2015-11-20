@@ -1,5 +1,5 @@
 var atworktoday = angular.module('atworktoday', ['ngSanitize']);
-
+io.sails.autoConnect = false;
 atworktoday.controller('main', ['$scope', '$http', '$sce',
     function($scope, $http, $sce){
 
