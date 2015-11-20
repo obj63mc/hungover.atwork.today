@@ -1,5 +1,6 @@
 var atworktoday = angular.module('atworktoday', ['ngSanitize']);
 io.sails.autoConnect = false;
+
 atworktoday.controller('main', ['$scope', '$http', '$sce',
     function($scope, $http, $sce){
 
@@ -43,7 +44,7 @@ atworktoday.controller('main', ['$scope', '$http', '$sce',
         socket.on('newpost', function(response){
             if(response.post.type == "twitter"){
                 response.post.data.text = minEmoji(response.post.data.text);
-            } else if(response.posts[i].type == "instagram"){
+            } else if(response.post.type == "instagram"){
                 if(typeof(response.post.data.caption) != "undefined" && response.post.data.caption != null){
                     response.post.data.caption.text = minEmoji(response.post.data.caption.text);
                 }
